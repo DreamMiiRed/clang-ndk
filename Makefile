@@ -4,19 +4,19 @@ CCFLAGS=-v -static-libstdc++
 
 SRCS = intstr test1
 
-OUTS := $(patsubst %,output/%,$(SRCS))
+OUTS := $(patsubst %,out/%,$(SRCS))
 
 all: $(SRCS)
 
 $(SRCS): %: src/%.cpp
 	@echo $< $@
-	$(CC) $(CCFLAGS) -o output/$@ $<
+	$(CC) $(CCFLAGS) -o out/$@ $<
 
 emu:
 	emulator -avd google_apis_21 -port 5554
 
 define adbpush
-	adb -s emulator-5554 push output/$(1) /data/local/tmp
+	adb -s emulator-5554 push out/$(1) /data/local/tmp
 	adb -s emulator-5554 shell "chmod 777 /data/local/tmp/$(1)"
 
 endef
@@ -29,7 +29,7 @@ shell:
 	adb -s emulator-5554 shell "LD_LIBRARY_PATH=/data/local/tmp /data/local/tmp/$(RUN)"
 
 clean:
-	del /q output\*
+	del /q out\*
 
 cleanadb:
 	adb -s emulator-5554 shell "rm /data/local/tmp/*"
