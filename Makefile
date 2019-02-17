@@ -10,6 +10,7 @@ all: $(SRCS)
 
 $(SRCS): %: src/%.cpp
 	@echo $< $@
+	if not exist out\NUL md out
 	$(CC) $(CCFLAGS) -o out/$@ $<
 
 emu:
@@ -29,7 +30,7 @@ shell:
 	adb -s emulator-5554 shell "LD_LIBRARY_PATH=/data/local/tmp /data/local/tmp/$(RUN)"
 
 clean:
-	del /q out\*
+	if exist out\NUL del /q out\*
 
 cleanadb:
 	adb -s emulator-5554 shell "rm /data/local/tmp/*"
