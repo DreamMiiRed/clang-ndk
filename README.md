@@ -1,1 +1,2 @@
-# ndk-build-src
+# clang-ndk
+

@@ -1,1 +1,0 @@
-emulator -avd google_apis_21 -port 5554
